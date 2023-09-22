@@ -2,11 +2,10 @@ package com.secao01.secao01.Configurations;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
-@Configuration
-@Profile("development")
+import com.secao01.secao01.Development;
+
+@Development
 public class DevConfiguration {
     
     @Bean
