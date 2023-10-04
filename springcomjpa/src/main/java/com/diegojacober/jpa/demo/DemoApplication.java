@@ -35,7 +35,7 @@ public class DemoApplication {
 
 			System.out.println("Buscando clientes");
 			// clienteRepository.buscarPorNome("Pe").forEach(System.out::println);
-			clienteRepository.findByNomeLike("Pe").forEach(System.out::println);
+			clienteRepository.encontrarPorNome("Pe").forEach(System.out::println);
 
 			/*
 			todosClientes = clienteRepository.findAll();
