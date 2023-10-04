@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -15,9 +16,13 @@ import com.diegojacober.jpa.demo.domain.entity.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-@Repository
-public class ClienteRepository {
+// @Repository
+public /*class*/ interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
+    List<Cliente> findByNomeLike(String nome);
+
+    // Se não estiver utilizando o JpaRepository posso utilizar as coisas abaixo
+    /* 
     private static String INSERT = "insert into cliente (nome) values (?);";
     private static String SELECT_ALL = "select * from cliente;";
     private static String SELECT_POR_NOME = "select * from cliente where nome like ?";
@@ -85,4 +90,5 @@ public class ClienteRepository {
     // }
     // };
     // }
+    */
 }

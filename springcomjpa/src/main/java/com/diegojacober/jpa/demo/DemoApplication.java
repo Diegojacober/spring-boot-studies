@@ -17,24 +17,31 @@ public class DemoApplication {
 	@Bean
 	public CommandLineRunner init(@Autowired ClienteRepository clienteRepository) {
 		return args -> {
-			clienteRepository.salvar(new Cliente(null, "Pedro"));
-			clienteRepository.salvar(new Cliente(null, "Henrique"));
+			// clienteRepository.salvar(new Cliente(null, "Pedro"));
+			clienteRepository.save(new Cliente(null, "Pedro"));
+			// clienteRepository.salvar(new Cliente(null, "Henrique"));
+			clienteRepository.save(new Cliente(null, "Henrique"));
 
-			List<Cliente> todosClientes = clienteRepository.obterTodos();
+			// List<Cliente> todosClientes = clienteRepository.obterTodos();
+			List<Cliente> todosClientes = clienteRepository.findAll();
 			todosClientes.forEach(System.out::println);
 
 			todosClientes.forEach(c-> {
 				c.setNome(c.getNome().concat(" Atualizado"));
-				clienteRepository.atualizar(c);
+				// clienteRepository.atualizar(c);
+				clienteRepository.save(c);
 				System.out.println("Atualizado para: " + c);
 			});
 
 			System.out.println("Buscando clientes");
-			clienteRepository.buscarPorNome("Pe").forEach(System.out::println);
+			// clienteRepository.buscarPorNome("Pe").forEach(System.out::println);
+			clienteRepository.findByNomeLike("Pe").forEach(System.out::println);
 
 
-			clienteRepository.deletar(1);
-			todosClientes = clienteRepository.obterTodos();
+			todosClientes = clienteRepository.findAll();
+			todosClientes.forEach(c -> {
+				clienteRepository.delete(c);
+			});
 			todosClientes.forEach(System.out::println);
 		};
 	}
