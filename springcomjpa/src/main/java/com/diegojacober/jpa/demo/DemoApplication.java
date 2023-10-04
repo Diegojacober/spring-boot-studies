@@ -22,6 +22,20 @@ public class DemoApplication {
 
 			List<Cliente> todosClientes = clienteRepository.obterTodos();
 			todosClientes.forEach(System.out::println);
+
+			todosClientes.forEach(c-> {
+				c.setNome(c.getNome().concat(" Atualizado"));
+				clienteRepository.atualizar(c);
+				System.out.println("Atualizado para: " + c);
+			});
+
+			System.out.println("Buscando clientes");
+			clienteRepository.buscarPorNome("Pe").forEach(System.out::println);
+
+
+			clienteRepository.deletar(1);
+			todosClientes = clienteRepository.obterTodos();
+			todosClientes.forEach(System.out::println);
 		};
 	}
 
