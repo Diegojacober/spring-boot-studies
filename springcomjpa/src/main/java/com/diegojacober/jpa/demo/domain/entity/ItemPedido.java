@@ -1,8 +1,5 @@
 package com.diegojacober.jpa.demo.domain.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 public class ItemPedido {
     private Integer id;
     private Pedido pedido;
