@@ -21,6 +21,22 @@ public /*class*/ interface ClienteRepository extends JpaRepository<Cliente, Inte
 
     List<Cliente> findByNomeLike(String nome);
 
+    List<Cliente> findByNomeOrIdOrderById(String nome, Integer id);
+
+    Cliente findOneById(Integer id);
+
+    boolean existsByNome(String nome);
+
+    /*
+     * QUERY METHODS
+     * 
+     * select c from Cliente where c.nome like %nome%;
+     * 
+     * pesquisa -> find
+     * pegar unico -> findOne
+     * existe -> exists
+     */
+
     // Se não estiver utilizando o JpaRepository posso utilizar as coisas abaixo
     /* 
     private static String INSERT = "insert into cliente (nome) values (?);";

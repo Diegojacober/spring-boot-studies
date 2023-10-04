@@ -37,12 +37,14 @@ public class DemoApplication {
 			// clienteRepository.buscarPorNome("Pe").forEach(System.out::println);
 			clienteRepository.findByNomeLike("Pe").forEach(System.out::println);
 
-
+			/*
 			todosClientes = clienteRepository.findAll();
 			todosClientes.forEach(c -> {
 				clienteRepository.delete(c);
 			});
 			todosClientes.forEach(System.out::println);
+			*/
+			System.out.println(clienteRepository.existsByNome("Pedro Atualizado"));
 		};
 	}
 
