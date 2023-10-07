@@ -1,8 +1,13 @@
 package com.diegojacober.api.api01.rest.controller;
 
 import java.util.Optional;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,5 +81,17 @@ public class ClienteController {
             return ResponseEntity.ok(clienteAtualizado);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/api/clientes")
+    @ResponseBody
+    public ResponseEntity<List<Cliente>> find(Cliente filtro) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+        .withIgnoreCase()
+        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        
+        Example example = Example.of(filtro, matcher);
+        List<Cliente> clientes = clienteRepository.findAll(example);
+        return ResponseEntity.ok(clientes);
     }
 }
