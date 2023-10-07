@@ -1,4 +1,4 @@
-package com.diegojacober.jpa.demo.domain.entity;
+package com.diegojacober.api.api01.domain.entity;
 
 import java.util.Set;
 
@@ -9,10 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "cliente") // não é obrigatório desde que o nome da tabela não seja diferente
 public class Cliente {
 
     @Id
@@ -23,7 +21,7 @@ public class Cliente {
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
 
     public Cliente() {

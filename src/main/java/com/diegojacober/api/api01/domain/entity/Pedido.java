@@ -1,14 +1,11 @@
-package com.diegojacober.jpa.demo.domain.entity;
+package com.diegojacober.api.api01.domain.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +28,6 @@ public class Pedido {
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    // precision quantidade de digitos 20, scale -> casas decimais
     @Column(name = "total", precision = 20, scale = 2)
     private BigDecimal total;
 
@@ -83,5 +79,4 @@ public class Pedido {
         return "Pedido [id=" + id + ", cliente=" + cliente + ", dataPedido=" + dataPedido + ", total=" + total;
     }
 
-    
 }

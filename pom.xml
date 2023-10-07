@@ -8,11 +8,11 @@
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.diegojacober.jpa</groupId>
-	<artifactId>springcomjpa</artifactId>
+	<groupId>com.diegojacober.api</groupId>
+	<artifactId>api01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Primeira api</name>
+	<description>Primeira api do curso</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,4 +1,4 @@
-package com.diegojacober.jpa.demo.domain.entity;
+package com.diegojacober.api.api01.domain.entity;
 
 import java.math.BigDecimal;
 
