@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,14 +25,11 @@ public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @RequestMapping(
-     value = {"/api/clientes/hello/{nome}", "/api/clientes/hello"},
-     method = RequestMethod.GET,
-     // o que a requisição aceita
-     consumes = { "application/json", "application/xml" },
-     // o que a requisição pode retornar
-     produces = { "application/json", "application/xml" }
-     )
+    @RequestMapping(value = { "/api/clientes/hello/{nome}", "/api/clientes/hello" }, method = RequestMethod.GET,
+            // o que a requisição aceita
+            consumes = { "application/json", "application/xml" },
+            // o que a requisição pode retornar
+            produces = { "application/json", "application/xml" })
     @ResponseBody
     public String helloCliente(@PathVariable("nome") String nomeCliente) {
         return String.format("Hello %s ", nomeCliente);
@@ -41,8 +39,8 @@ public class ClienteController {
     @ResponseBody
     public ResponseEntity<Cliente> getClienteById(@PathVariable Integer id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
-        
-        if(cliente.isPresent()) {
+
+        if (cliente.isPresent()) {
             return ResponseEntity.ok().body(cliente.get());
         }
         return ResponseEntity.notFound().build();
@@ -58,11 +56,24 @@ public class ClienteController {
     @DeleteMapping("/api/clientes/{id}")
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-         Optional<Cliente> cliente = clienteRepository.findById(id);
-        
-        if(cliente.isPresent()) {
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+
+        if (cliente.isPresent()) {
             clienteRepository.delete(cliente.get());
             return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/api/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> update(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        Optional<Cliente> c = clienteRepository.findById(id);
+ 
+        if(c.isPresent()){
+            cliente.setId(c.get().getId());
+            Cliente clienteAtualizado = clienteRepository.save(cliente);
+            return ResponseEntity.ok(clienteAtualizado);
         }
         return ResponseEntity.notFound().build();
     }
