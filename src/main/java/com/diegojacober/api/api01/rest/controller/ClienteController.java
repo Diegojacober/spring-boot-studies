@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/clientes") //forma01
 public class ClienteController {
 
-    @RequestMapping(value = "/hello/{nome}", method = RequestMethod.GET)
+    @RequestMapping(
+     value = {"/hello/{nome}", "api/hello"},
+     method = RequestMethod.GET,
+     // o que a requisição aceita
+     consumes = { "application/json", "application/xml" },
+     // o que a requisição pode retornar
+     produces = { "application/json", "application/xml" }
+     )
     @ResponseBody
     public String helloCliente(@PathVariable("nome") String nomeCliente) {
         return String.format("Hello %s ", nomeCliente);
