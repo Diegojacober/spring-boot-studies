@@ -3,6 +3,7 @@ package com.diegojacober.api.api01.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,4 +78,11 @@ public class PedidoServiceImpl implements PedidoService {
                 }).collect(Collectors.toList());
 
     }
+
+    @Override
+    public Optional<Pedido> obterPedidoCompleto(Integer id) {
+        return pedidoRepository.findByIdFetchItens(id);
+    }
+
+    
 }
