@@ -17,6 +17,7 @@ import com.diegojacober.api.api01.domain.entity.repository.ClienteRepository;
 import com.diegojacober.api.api01.domain.entity.repository.ItemPedidoRepository;
 import com.diegojacober.api.api01.domain.entity.repository.PedidoRepository;
 import com.diegojacober.api.api01.domain.entity.repository.ProdutoRepository;
+import com.diegojacober.api.api01.exception.PedidoNaoEncontradoException;
 import com.diegojacober.api.api01.exception.RegraNegocioException;
 import com.diegojacober.api.api01.rest.controller.dto.ItemPedidoDTO;
 import com.diegojacober.api.api01.rest.controller.dto.PedidoDTO;
@@ -64,14 +65,13 @@ public class PedidoServiceImpl implements PedidoService {
 
         return items
                 .stream()
-                .map( dto -> {
+                .map(dto -> {
                     Integer idProduto = dto.getProduto();
                     Produto produto = produtoRepository
                             .findById(idProduto)
                             .orElseThrow(
                                     () -> new RegraNegocioException(
-                                            "Código de produto inválido: "+ idProduto
-                                    ));
+                                            "Código de produto inválido: " + idProduto));
 
                     ItemPedido itemPedido = new ItemPedido();
                     itemPedido.setQuantidade(dto.getQuantidade());
@@ -79,7 +79,6 @@ public class PedidoServiceImpl implements PedidoService {
                     itemPedido.setProduto(produto);
                     return itemPedido;
                 }).collect(Collectors.toList());
-
     }
 
     @Override
@@ -87,5 +86,13 @@ public class PedidoServiceImpl implements PedidoService {
         return pedidoRepository.findByIdFetchItens(id);
     }
 
-    
+    @Override
+    @Transactional
+    public void atualizarStatus(Integer id, StatusPedido status) {
+        pedidoRepository.findById(id).map(pedido -> {
+            pedido.setStatus(status);
+            return pedidoRepository.save(pedido);
+        }).orElseThrow(() -> new PedidoNaoEncontradoException("Código de produto inválido"));
+    }
+
 }

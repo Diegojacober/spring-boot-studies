@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.diegojacober.api.api01.domain.entity.ItemPedido;
 import com.diegojacober.api.api01.domain.entity.Pedido;
+import com.diegojacober.api.api01.domain.entity.enums.StatusPedido;
+import com.diegojacober.api.api01.rest.controller.dto.AtualizacaoStatusPedidoDTO;
 import com.diegojacober.api.api01.rest.controller.dto.InformacaoItemPedidoDTO;
 import com.diegojacober.api.api01.rest.controller.dto.InformacoesPedidoDTO;
 import com.diegojacober.api.api01.rest.controller.dto.PedidoDTO;
@@ -47,6 +51,13 @@ public class PedidoController {
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Pedido não encontrado"));
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+        String novoStatus = dto.getNovoStatus();
+        service.atualizarStatus(id, StatusPedido.valueOf(novoStatus));
+    }
+
     private InformacoesPedidoDTO converter(Pedido pedido) {
         return InformacoesPedidoDTO
                 .builder()
@@ -71,7 +82,7 @@ public class PedidoController {
                         .descricaoProduto(item.getProduto().getDescricao())
                         .precoUnitario(item.getProduto().getPreco())
                         .quantidade(item.getQuantidade())
-                        .build()
-        ).collect(Collectors.toList());
+                        .build())
+                .collect(Collectors.toList());
     }
 }
