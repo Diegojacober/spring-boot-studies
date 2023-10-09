@@ -30,6 +30,8 @@ import com.diegojacober.api.api01.rest.controller.dto.InformacoesPedidoDTO;
 import com.diegojacober.api.api01.rest.controller.dto.PedidoDTO;
 import com.diegojacober.api.api01.service.PedidoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/pedidos")
 public class PedidoController {
@@ -39,7 +41,7 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Integer save(@RequestBody PedidoDTO dto) {
+    public Integer save(@RequestBody @Valid PedidoDTO dto) {
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
@@ -53,7 +55,7 @@ public class PedidoController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    public void updateStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+    public void updateStatus(@PathVariable Integer id, @RequestBody @Valid AtualizacaoStatusPedidoDTO dto) {
         String novoStatus = dto.getNovoStatus();
         service.atualizarStatus(id, StatusPedido.valueOf(novoStatus));
     }

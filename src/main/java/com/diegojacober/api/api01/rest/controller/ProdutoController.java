@@ -21,6 +21,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.diegojacober.api.api01.domain.entity.Produto;
 import com.diegojacober.api.api01.domain.entity.repository.ProdutoRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/produtos")
 public class ProdutoController {
@@ -36,7 +38,7 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Produto save(@RequestBody Produto produto) {
+    public Produto save(@RequestBody @Valid Produto produto) {
         return produtoRepository.save(produto);
     }
 
@@ -53,7 +55,7 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public Produto update(@PathVariable Integer id, @RequestBody Produto produto) {
+    public Produto update(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
         Optional<Produto> p = produtoRepository.findById(id);
 
         if (p.isPresent()) {

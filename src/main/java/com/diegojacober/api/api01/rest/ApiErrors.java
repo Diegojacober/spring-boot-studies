@@ -4,7 +4,6 @@ import java.util.List;
 
 import lombok.Data;
 import lombok.Getter;
-
 public class ApiErrors {
 
     @Getter
@@ -12,5 +11,9 @@ public class ApiErrors {
 
     public ApiErrors(String msgError) {
         this.errors = Arrays.asList(msgError);
+    }
+
+    public ApiErrors(List<String> errors) {
+        this.errors = errors;
     }
 }

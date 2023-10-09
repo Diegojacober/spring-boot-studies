@@ -2,6 +2,8 @@ package com.diegojacober.api.api01.domain.entity;
 
 import java.util.Set;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -11,7 +13,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Cliente {
 
@@ -21,58 +30,23 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100, nullable = false)
+    @NotEmpty(message = "Campo nome é obrigatório")
     private String nome;
 
     @Column(name = "cpf", length = 11)
+    @NotEmpty(message = "CPF é obrigatório")
+    @CPF(message = "Informe um cpf válido")
     private String cpf;
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
+    public Cliente(Integer id, String nome, String cpf) {
+        this.id = id;
+        this.nome = nome;
         this.cpf = cpf;
     }
+
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
-
-    public Cliente() {
-    }
-
-    public Cliente(Integer id, String name) {
-        this.id = id;
-        this.nome = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String name) {
-        this.nome = name;
-    }
-
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente [id=" + id + ", nome=" + nome + "]";
-    }
-
 }

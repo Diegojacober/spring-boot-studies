@@ -19,7 +19,7 @@ public class ApiApplication {
 	@Bean
 	public CommandLineRunner init(@Autowired ClienteRepository clienteRepository, @Autowired ProdutoRepository produtoRepository) {
 		return args -> {
-			clienteRepository.save(new Cliente(null, "Diego Alencar"));
+			clienteRepository.save(new Cliente(null, "Diego Alencar", "50352627077"));
 			produtoRepository.save(new Produto(null, "Carro", BigDecimal.valueOf(150000.00)));
 		};
 	}

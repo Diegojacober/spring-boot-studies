@@ -25,6 +25,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.diegojacober.api.api01.domain.entity.Cliente;
 import com.diegojacober.api.api01.domain.entity.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
+
 // @Controller // forma01
 @RestController // forma02
 @RequestMapping(value = "api/clientes") // forma02
@@ -64,7 +66,7 @@ public class ClienteController {
     // Cliente clienteSalvo = clienteRepository.save(cliente);
     // return ResponseEntity.ok(clienteSalvo);
     // }
-    public Cliente save(@RequestBody Cliente cliente) {
+    public Cliente save(@RequestBody @Valid Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
@@ -103,7 +105,7 @@ public class ClienteController {
     // return ResponseEntity.notFound().build();
     // }
     @ResponseStatus(code = HttpStatus.OK)
-    public Cliente update(@PathVariable Integer id, @RequestBody Cliente cliente) {
+    public Cliente update(@PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
         Optional<Cliente> c = clienteRepository.findById(id);
 
         if (c.isPresent()) {
