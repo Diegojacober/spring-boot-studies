@@ -12,6 +12,7 @@ import com.diegojacober.api.api01.domain.entity.Cliente;
 import com.diegojacober.api.api01.domain.entity.ItemPedido;
 import com.diegojacober.api.api01.domain.entity.Pedido;
 import com.diegojacober.api.api01.domain.entity.Produto;
+import com.diegojacober.api.api01.domain.entity.enums.StatusPedido;
 import com.diegojacober.api.api01.domain.entity.repository.ClienteRepository;
 import com.diegojacober.api.api01.domain.entity.repository.ItemPedidoRepository;
 import com.diegojacober.api.api01.domain.entity.repository.PedidoRepository;
@@ -47,6 +48,8 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setDataPedido(LocalDate.now());
 
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
+
         List<ItemPedido> itemsPedido = converterItens(pedido, dto.getItems());
         pedidoRepository.save(pedido);
         itemPedidoRepository.saveAll(itemsPedido);
