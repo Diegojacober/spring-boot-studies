@@ -6,13 +6,18 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.diegojacober.api.api01.security.jwt.JwtAuthFilter;
+import com.diegojacober.api.api01.security.jwt.JwtService;
 import com.diegojacober.api.api01.service.impl.UserServiceImpl;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -27,6 +32,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,9 +55,15 @@ public class SecurityConfig {
                         .requestMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(withDefaults())
+                .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider());
         return http.build();
+    }
+
+    @Bean
+    public OncePerRequestFilter jwtFilter() {
+        return new JwtAuthFilter();
     }
     
 
