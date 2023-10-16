@@ -1,9 +1,8 @@
-package com.diegojacober.api.api01.service;
+package com.diegojacober.api.api01.security.jwt;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
