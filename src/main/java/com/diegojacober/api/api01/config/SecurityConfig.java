@@ -2,6 +2,7 @@ package com.diegojacober.api.api01.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,7 +45,7 @@ public class SecurityConfig {
                         // .hasAuthority("MANTER USUARIO")
                         .requestMatchers("/api/produtos/**").hasRole("ADMIN")
                         .requestMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers( "/api/usuarios/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults())
                 .authenticationProvider(authenticationProvider());
