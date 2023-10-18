@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-JpamaisApplication<spring-boot-studies>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.diegojacober.jpamais.JpamaisApplication",
+            "projectName": "spring-boot-studies",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
