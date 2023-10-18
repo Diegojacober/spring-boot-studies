@@ -1,0 +1,5 @@
+mvn clean package
+
+mvn update        ~= ./gradlew build --refresh-dependencies
+mvn clean install ~= ./gradlew clean build
+
