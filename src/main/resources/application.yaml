@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        '[format_sql]': true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apilivros
+    username: dev
+    password: 123456
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
