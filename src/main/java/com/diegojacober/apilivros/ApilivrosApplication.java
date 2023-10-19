@@ -1,5 +1,6 @@
 package com.diegojacober.apilivros;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,10 @@ public class ApilivrosApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Author> authors = new ArrayList<>(Arrays.asList(new Author(null, "Diego"), new Author(null, "Fernando Pessoa")));
+		Author autor1 = new Author(null, "Diego");
+		Author autor2 = new Author(null, "Fernando Pessoa");
+		Author autor3 = new Author(null, "Marcos Gente");
+		List<Author> authors = new ArrayList<>(Arrays.asList(autor1, autor2, autor3));
 		authorService.saveAll(authors);
 	}
 
