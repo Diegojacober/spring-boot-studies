@@ -16,7 +16,7 @@ import com.diegojacober.apilivros.rest.service.BookService;
 
 @SpringBootApplication
 public class ApilivrosApplication implements CommandLineRunner{
-
+	// https://maykonoliveira850.medium.com/listagem-com-filtragem-din%C3%A2mica-e-pagina%C3%A7%C3%A3o-usando-o-spring-boot-2b99dd1d7050
 	@Autowired
 	private AuthorService authorService;
 
