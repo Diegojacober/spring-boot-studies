@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.diegojacober.apilivros.domain.entity.Book;
 import com.diegojacober.apilivros.rest.repository.BookRepository;
+import com.diegojacober.apilivros.rest.repository.specs.CriteriaSpecification;
+
 
 @Service
 public class BookService{
@@ -20,8 +22,9 @@ public class BookService{
         return repository.findAll();
     }
 
-    public Page<Book> findAllByCriteria(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Book> findAllByCriteria(CriteriaSpecification<Book> criteria ,Pageable pageable) {
+        var specification = criteria.toSpecification();
+        return repository.findAll(specification, pageable);
     }
 
     public void save(Book book) {

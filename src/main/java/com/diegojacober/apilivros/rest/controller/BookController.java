@@ -1,6 +1,7 @@
 package com.diegojacober.apilivros.rest.controller;
 
 import com.diegojacober.apilivros.domain.entity.Book;
+import com.diegojacober.apilivros.rest.repository.criterias.BookCriteria;
 import com.diegojacober.apilivros.rest.service.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class BookController {
     private BookService service;
 
     @GetMapping
-    public Page<Book> list(Pageable page) {
-        return service.findAllByCriteria(page);
+    public Page<Book> list(BookCriteria criteria, Pageable page) {
+        return service.findAllByCriteria(criteria, page);
     }
 
     @GetMapping("/teste")
