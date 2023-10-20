@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.diegojacober.apilivros.domain.entity.Author;
+import com.diegojacober.apilivros.domain.entity.Book;
 import com.diegojacober.apilivros.rest.service.AuthorService;
 import com.diegojacober.apilivros.rest.service.BookService;
 
@@ -20,15 +21,16 @@ public class ApilivrosApplication implements CommandLineRunner{
 	@Autowired
 	private AuthorService authorService;
 
-	@Autowired BookService bookService;
+	@Autowired
+	private BookService bookService;
 
 	@Override
 	public void run(String... args) throws Exception {
-		Author autor1 = new Author(null, "Diego");
-		Author autor2 = new Author(null, "Fernando Pessoa");
-		Author autor3 = new Author(null, "Marcos Gente");
-		List<Author> authors = new ArrayList<>(Arrays.asList(autor1, autor2, autor3));
-		authorService.saveAll(authors);
+		// Author autor1 = new Author(null, "Diego");
+		// Author autor2 = new Author(null, "Fernando Pessoa");
+		// Author autor3 = new Author(null, "Marcos Gente");
+		// List<Author> authors = new ArrayList<>(Arrays.asList(autor1, autor2, autor3));
+		// authorService.saveAll(authors);
 	}
 
 	public static void main(String[] args) {

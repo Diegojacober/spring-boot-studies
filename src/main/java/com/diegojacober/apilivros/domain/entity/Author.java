@@ -11,15 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "author")
 public class Author {
 
     @Id
@@ -29,12 +25,47 @@ public class Author {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<Book> books;
+    public Author() {
+
+    }
 
     public Author(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<Book> book;
+
+    @Override
+    public String toString() {
+        return "Author [id=" + id + ", name=" + name + "]";
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(Set<Book> book) {
+        this.book = book;
+    }
+
+    
 }
